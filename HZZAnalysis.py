@@ -1,4 +1,4 @@
-import uproot
+import uproot3 as uproot
 import pandas as pd
 import time
 import math
@@ -23,11 +23,11 @@ class CustomTicker(LogFormatterSciNotation):
             return "{x:g}".format(x=x)
 
 
-save_results = None # 'h5' or 'csv' or None
+save_results = 'csv' # 'h5' or 'csv' or None
 
 lumi = 10 # 10 fb-1
 
-fraction = 1 # reduce this is you want the code to run quicker
+fraction = 0.5 # reduce this is you want the code to run quicker
 
 #tuple_path = "Input/4lep/" # local
 tuple_path = "https://atlas-opendata.web.cern.ch/atlas-opendata/samples/2020/4lep/" # web address
@@ -169,7 +169,7 @@ def read_file(path,sample):
         data['mllll'] = np.vectorize(calc_mllll)(data.lep_pt,data.lep_eta,data.lep_phi)
         
         nOut = len(data.index)
-        data_all = data_all.append(data)
+        data_all = data_all._append(data)
         elapsed = time.time() - start
         print("\t\t"+sample+" time taken: "+str(elapsed)+"s, nIn: "+str(nIn)+", nOut: "+str(nOut))
 
